@@ -4,8 +4,44 @@ const booksList = document.querySelector('#books-list');
 
 // events
 form.addEventListener('submit', addBook);
-//booksList.addEventListener('click', deleteBook);
+booksList.addEventListener('click', deleteBook);
 //document.addEventListener('DOMContentLoaded', getBooksFromLocalStorage);
+
+function deleteBook(event){
+    if(event.target.textContent === 'X'){
+        if(confirm('Do you want to delete this book?')){
+            event.target.parentElement.parentElement.remove();
+            //let bookTitle = event.target.parentElement.parentElement.firstChild.textContent;
+            let bookISBN = event.target.parentElement.previousElementSibling.textContent;
+            deleteBookFromLocalStorage(bookISBN);
+        }
+    }
+}
+
+function deleteBookFromLocalStorage(bookISBN){
+    let books;
+    if(localStorage.getItem('books') === null){
+        books = [];
+    } else {
+        books = JSON.parse(localStorage.getItem('books'));
+    }
+    /*
+    for(let i = 0; i < books.length; i++){
+        let book = books[i];
+        if(book[2] === bookISBN){
+            books.splice(i, 1);
+        }
+    }
+    */
+
+    books.forEach(function (book, index){
+        if(book[2] === bookISBN){
+            books.splice(index, 1);
+        }
+    });
+
+    localStorage.setItem('books', JSON.stringify(books));
+}
 
 function addBook(event){
     // get form input data
@@ -101,33 +137,5 @@ function getTasksFromLocalStorage(){
         const ul = document.querySelector('.collection');
         ul.appendChild(li);
     });
-}
-*/
-
-/*
-function deleteBook(event){
-   if(event.target.textContent === 'X'){
-       if(confirm('Do you want to delete this task?')){
-           event.target.parentElement.remove();
-           task = event.target.parentElement.firstChild.textContent;
-           deleteTaskFromLocalStorage(task);
-       }
-   }
-}
-*/
-/*
-function deleteBookFromLocalStorage(task){
-    let tasks;
-    if(localStorage.getItem('tasks') === null){
-        tasks = [];
-    } else {
-        tasks = JSON.parse(localStorage.getItem('tasks'));
-    }
-    tasks.forEach(function (tasksElement, index){
-        if(tasksElement === task){
-            tasks.splice(index, 1);
-        }
-    });
-    localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 */

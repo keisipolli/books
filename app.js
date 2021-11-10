@@ -17,35 +17,23 @@ function addBook(event){
     let author = authorInput.value;
     let isbn = isbnInput.value;
 
+    // create book
+    const book = [title, author, isbn]
     // create <tr> element
     const tr = document.createElement('tr');
-    // title
-    // create <td> element
-    let td = document.createElement('td');
-    // create text element
-    let text = document.createTextNode(title);
-    // add text to <td>
-    td.appendChild(text);
-    // add td to tr
-    tr.appendChild(td);
-    // author
-    // create <td> element
-    td = document.createElement('td');
-    // create text element
-    text = document.createTextNode(author);
-    // add text to <td>
-    td.appendChild(text);
-    // add td to tr
-    tr.appendChild(td);
-    // isbn
-    // create <td> element
-    td = document.createElement('td');
-    // create text element
-    text = document.createTextNode(isbn);
-    // add text to <td>
-    td.appendChild(text);
-    // add td to tr
-    tr.appendChild(td);
+
+    for(let i = 0; i < book.length; i++){
+        // create <td> element
+        let td = document.createElement('td');
+        // create text element
+        let text = document.createTextNode(book[i]);
+        // add text to <td>
+        td.appendChild(text);
+        // add td to tr
+        tr.appendChild(td);// add td to tr
+        tr.appendChild(td);
+    }
+
     // X link
     // create <td> element
     td = document.createElement('td');
@@ -61,12 +49,12 @@ function addBook(event){
     tr.appendChild(td);
     // add tr to tbody
     booksList.appendChild(tr);
-    // save task
-    //addTaskToLocalStorage(task);
+
+    // save book
+    //addBookToLocalStorage(book);
     titleInput.value = '';
     authorInput.value = '';
     isbnInput.value = '';
-
     event.preventDefault();
 }
 
